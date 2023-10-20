@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .song-cover {
+            width: 100px;
+            height: 100px;
+        }
+        .song-details {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .play-btn,
+        .download-btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+        .download-btn {
+            background-color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+<h1>Search Results</h1>
+<ul>
+    {% for song in songs %}
+    <li>
+        <img class="song-cover" src="{{ song.picUrl }}" alt="Song Cover">
+        <div class="song-details">
+            <span class="song-name">{{ song.name }}</span>
+            <p>Artist: {{ song.artist }}</p>
+            <p>Album: {{ song.album }}</p>
+        </div>
+        <div class="buttons">
+            <form action="/play" method="POST" style="display: inline;">
+                <input type="hidden" name="song_id" value="{{ song.id }}">
+                <input type="hidden" name="song_url" value="{{ song.url }}">
+                <input type="hidden" name="artist" value="{{ song.artist }}">
+                <input type="hidden" name="album" value="{{ song.album }}">
+                <input type="hidden" name="picUrl" value="{{ song.picUrl }}">
+                <input type="hidden" name="lyric" value="{{ song.lyric }}">
+                <button class="play-btn" type="submit">Play</button>
+            </form>
+
+            <a class="download-btn" href="{{ song.url }}">Download</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<script>
+    // function playSong(songUrl) {
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('GET', songUrl, true);
+    //     xhr.responseType = 'blob';
+    //
+    //     xhr.onload = function() {
+    //         if (xhr.status === 200) {
+    //             var audioBlob = xhr.response;
+    //             var reader = new FileReader();
+    //
+    //             reader.onloadend = function() {
+    //                 var arrayBuffer = reader.result;
+    //                 var audioData = new Uint8Array(arrayBuffer);
+    //
+    //                 var audioBlobUrl = URL.createObjectURL(audioBlob);
+    //
+    //                 var tempFile = new File([audioData], 'temp_song.mp3', { type: 'audio/mpeg' });
+    //
+    //                 var a = document.createElement('a');
+    //                 a.href = URL.createObjectURL(tempFile);
+    //                 a.download = 'temp_song.mp3';
+    //                 a.click();
+    //             };
+    //
+    //             reader.readAsArrayBuffer(audioBlob);
+    //         }
+    //     };
+    //
+    //     xhr.send();
+    // }
+
+    function playSong(songUrl) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/play';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'song_url';
+        input.value = songUrl;
+
+
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+
+        form.submit();
+    }
+</script>
+</body>
+</html>

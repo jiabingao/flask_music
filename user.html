@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Playlists</title>
+    <style>
+        .playlist {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .playlist h3 {
+            color: #333;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .playlist p {
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .playlist img {
+            width: 200px;
+            height: auto;
+        }
+
+        .playlist form {
+            display: inline-block;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .buttons button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .buttons button:hover {
+            background-color: #45a049;
+        }
+
+
+
+
+        /*    开始*/
+        .playlist {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .playlist h3 {
+            color: #333;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .playlist p {
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .playlist img {
+            width: 200px;
+            height: auto;
+        }
+
+        .playlist button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .playlist button:hover {
+            background-color: #45a049;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<h1>User Playlists</h1>
+
+{% for playlist in playlists %}
+<div class="playlist">
+    <h3>{{ playlist['name'] }}</h3>
+    <p>ID: {{ playlist['id'] }}</p>
+    <p>Tags: {{ playlist['tags'] }}</p>
+    <img src="{{ playlist['coverImgUrl'] }}" alt="{{ playlist['name'] }}">
+    <form action="/user/playList" method="POST">
+        <input type="hidden" name="playlistId" value="{{ playlist['id'] }}">
+        <button type="submit">查看详情</button>
+    </form>
+</div>
+{% endfor %}
+</body>
+</html>

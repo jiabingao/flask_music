@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Playback Page</title>
+    <style>
+        .comment-bubble {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            animation: fly-in 1s forwards;
+            opacity: 0;
+            transform: translateX(200px);
+        }
+
+        @keyframes fly-in {
+            0% { opacity: 0; transform: translateX(200px); }
+            20% { opacity: 1; transform: translateX(0); }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(-200px); }
+        }
+        /*气泡开始*/
+        .comment-bubble {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            animation: fly-in 1s forwards;
+            opacity: 0;
+            transform: translateX(200px);
+        }
+
+        @keyframes fly-in {
+            0% { opacity: 0; transform: translateX(200px); }
+            20% { opacity: 1; transform: translateX(0); }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(-200px); }
+        }
+        /* CSS styles for comments */
+        .comment-bubble {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            animation: fade-in 0.5s ease-in-out;
+        }
+
+        .comment-bubble img {
+            width: 40px;  /* 调整为适当的尺寸 */
+            height: 40px; /* 调整为适当的尺寸 */
+            margin-right: 10px;
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .comment-bubble.fade-out {
+            animation: fade-out 0.5s ease-in-out;
+        }
+
+        @keyframes fade-out {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        /*.container {*/
+        /*    position: relative;*/
+        /*    width: 400px;*/
+        /*    height: 600px;*/
+        /*    background-color: #F5F5F5;*/
+        /*    padding: 20px;*/
+        /*}*/
+
+        .cover-image {
+            width: 100%;
+            height: 400px;
+            background-color: #DDD;
+            margin-bottom: 20px;
+        }
+
+        .comments-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .comment-bubble {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #FFF;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation-duration: 3s;
+        }
+
+        .comment-info {
+            margin-left: 10px;
+        }
+
+        @keyframes move-up {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        @keyframes fade-out {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+
+        /*气泡结束*/
+
+
+
+
+        /* CSS styles for comments */
+        .comment-bubble {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            animation: fade-in 2s ease-in-out;
+        }
+
+        .comment-bubble img {
+            width: 40px;  /* 调整为适当的尺寸 */
+            height: 40px; /* 调整为适当的尺寸 */
+            margin-right: 10px;
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .comment-bubble.fade-out {
+            animation: fade-out 0.5s ease-in-out;
+        }
+
+        @keyframes fade-out {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        /* CSS styles for the playback page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 50px;
+        }
+        .song-cover {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            animation: rotate 10s linear infinite;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .song-info {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .lyrics-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 30px;
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+        .lyrics-list li {
+            color: #333; /* Lyrics font color */
+            font-size: 18px; /* Lyrics font size */
+            margin-bottom: 10px; /* Spacing between lines */
+            opacity: 0.6; /* Initial transparency */
+            transition: opacity 0.3s; /* Smooth transition effect for opacity */
+        }
+        .lyrics-list li.highlight {
+            opacity: 1; /* Fully visible for the current line */
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        #progress-bar {
+            width: 300px;
+            height: 10px;
+            margin-right: 15px;
+        }
+        #play-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img class="song-cover" id="song-cover" src="{{ song.picUrl }}" alt="Song Cover">
+<!--  气泡测试开始-->
+
+
+
+    <!--起跑测试结束-->
+    <div class="song-info">
+        <h2>{{ song.name }}</h2>
+        <p>Artist: {{ song.artist }}</p>
+    </div>
+    <ul id="lyrics-list" class="lyrics-list"></ul>
+    <div class="controls">
+        <input type="range" id="progress-bar" min="0" max="100">
+        <button id="play-button">Play</button>
+    </div>
+</div>
+
+<script>
+
+    const songLyric = `{% autoescape false %}{{ song.lyric }}{% endautoescape %}`;
+
+    const songCoverElement = document.getElementById("song-cover");
+    const lyricsListElement = document.getElementById("lyrics-list");
+    const progressBarElement = document.getElementById("progress-bar");
+    const playButtonElement = document.getElementById("play-button");
+
+
+    let currentTime = 0;
+    let currentLineIndex = 0;
+
+    function insertLyrics() {
+        const lyricsArray = songLyric.split("\n");
+        lyricsArray.forEach((line, index) => {
+            const timestamp = line.substring(1, 6); // Extract timestamp [00:00]
+            const lyricText = line.substring(11); // Remove timestamp [00:00]
+
+            const listItem = document.createElement("li");
+            listItem.textContent = lyricText;
+
+            if (index === currentLineIndex) {
+                listItem.classList.add("highlight"); // Apply highlighting to the current line
+            }
+
+            lyricsListElement.appendChild(listItem);
+        });
+    }
+
+    function updateLyrics() {
+        const lyricsArray = lyricsListElement.getElementsByTagName("li");
+        const currentTimeMinutes = Math.floor(currentTime / 60);
+        const currentTimeSeconds = Math.floor(currentTime % 60);
+        const currentTimeString = `${currentTimeMinutes.toString().padStart(2, "0")}:${currentTimeSeconds.toString().padStart(2, "0")}`;
+
+        for (let i = 0; i < lyricsArray.length; i++) {
+            const lineTimestamp = lyricsArray[i].textContent.substring(0, 5);
+
+            if (lineTimestamp === currentTimeString) {
+                lyricsArray[currentLineIndex].classList.remove("highlight"); // Remove highlighting from previous line
+                lyricsArray[i].classList.add("highlight"); // Apply highlighting to the current line
+                currentLineIndex = i;
+                break;
+            }
+        }
+    }
+
+    songComments=[];
+    songComments2 = `{% autoescape false %}{{ song.Comment }}{% endautoescape %}`;
+
+
+    // 将字符串转换为数组
+
+    // 首先去掉字符串中的单引号
+    let cleanedString = songComments2.replace(/'/g, '"').replace(/\r?\n/g, '');
+    console.log(cleanedString)
+    // 解析字符串为JavaScript对象
+    // 将字符串包装在方括号中
+    const jsonArrayString = `[${cleanedString}]`;
+    const commentsArray = JSON.parse(cleanedString)
+    console.log(commentsArray)
+
+
+    // 遍历数组，将每个评论对象添加到songComments数组中
+    for (let i = 0; i < commentsArray.length; i++) {
+        const commentObj = commentsArray[i];
+        songComments.push(commentObj);
+         console.log(commentObj)
+    }
+
+
+
+    function showComments() {
+        const commentsContainer = document.createElement("div");
+        commentsContainer.classList.add("comments-container");
+
+        const coverImageElement = document.querySelector(".song-cover");
+
+        let currentCommentIndex = 0; // 当前正在显示的评论索引
+
+        function playNextComment() {
+            if (currentCommentIndex >= songComments.length) {
+                // 播放完所有评论后重新开始
+                currentCommentIndex = 0;
+            }
+
+            const comment = songComments[currentCommentIndex];
+            const commentBubble = document.createElement("div");
+            commentBubble.classList.add("comment-bubble");
+
+            const avatarImg = document.createElement("img");
+            avatarImg.src = comment.avatarUrl;
+            avatarImg.alt = "Avatar";
+            commentBubble.appendChild(avatarImg);
+
+            const commentInfo = document.createElement("div");
+            commentInfo.classList.add("comment-info");
+
+            const username = document.createElement("span");
+            username.textContent = comment.nickName;
+            commentInfo.appendChild(username);
+
+            const likeCount = document.createElement("span");
+            likeCount.textContent = `Likes: ${comment.likeCount}`;
+            commentInfo.appendChild(likeCount);
+
+            const content = document.createElement("p");
+            content.textContent = comment.content;
+            commentInfo.appendChild(content);
+
+            commentBubble.appendChild(commentInfo);
+            commentsContainer.appendChild(commentBubble);
+
+            const animationDuration = 3000; // 动画持续时间（单位：毫秒）
+            const commentWidth = commentBubble.offsetWidth;
+            const containerWidth = commentsContainer.offsetWidth;
+
+            commentBubble.animate(
+                [
+                    { transform: `translateX(${containerWidth}px)` },
+                    { transform: `translateX(-${commentWidth}px)` }
+                ],
+                {
+                    duration: animationDuration,
+                    easing: "linear",
+                    fill: "forwards"
+                }
+            );
+
+            setTimeout(() => {
+                commentBubble.remove();
+                currentCommentIndex++; // 增加评论索引
+                playNextComment(); // 播放下一个评论
+            }, animationDuration);
+        }
+
+        playNextComment();
+
+        const controlsElement = document.querySelector(".controls");
+        controlsElement.insertAdjacentElement("beforebegin", commentsContainer);
+    }
+
+
+
+
+
+    function playPause() {
+
+        if (audio.paused) {
+            audio.play();
+            playButtonElement.textContent = "Pause";
+        } else {
+            audio.pause();
+            playButtonElement.textContent = "Play";
+        }
+    }
+
+
+
+
+
+    function updateProgressBar() {
+        const duration = audio.duration;
+        const currentTime = audio.currentTime;
+        const progress = (currentTime / duration) * 100;
+        progressBarElement.value = progress;
+        // Call the showComments function to display the comments
+
+        updateLyrics(); // Update highlighted lyrics based on the current time
+    }
+
+    progressBarElement.addEventListener("input", function () {
+        const progress = progressBarElement.value / 100;
+        audio.currentTime = progress * audio.duration;
+    });
+
+    const audio = new Audio("{{ song.url }}");
+    audio.addEventListener("timeupdate", updateProgressBar);
+
+    insertLyrics();
+    showComments();
+
+    playButtonElement.addEventListener("click", playPause);
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Music Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f2f2f2;
+            overflow: hidden;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .owl {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+        .owl .body {
+            width: 100px;
+            height: 70px;
+            background-color: #4CAF50;
+            border-radius: 50% / 45%;
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+        .owl .eyes {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 35px;
+            width: 100%;
+        }
+        .owl .eyes .eye {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+        }
+        .owl .eyes .eye::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 7px;
+            left: 8px;
+        }
+        .animation {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+        .animation .network {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            position: absolute;
+        }
+        .animation .network .line {
+            width: 2px;
+            height: 100%;
+            background-color: #4CAF50;
+            position: absolute;
+            animation: move 1s infinite;
+        }
+        @keyframes move {
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(-250%);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Music Search</h1>
+
+<div class="owl">
+    <div class="body"></div>
+    <div class="eyes">
+        <div class="eye"></div>
+        <div class="eye"></div>
+    </div>
+</div>
+
+
+<form action="/search" method="post">
+    <input type="radio" id="song" name="search_type" value="song" checked>
+    <label for="song">Search Song</label>
+    <input type="radio" id="user" name="search_type" value="user">
+    <label for="user">Search User</label>
+    <br><br>
+    <input type="text" name="keyword" placeholder="Enter a song or artist...">
+    <br><br>
+    <input type="number" name="count" placeholder="Enter the number of results..." min="1" max="40" step="1">
+    <br><br>
+    <input type="submit" value="Search">
+</form>
+
+<div class="animation">
+    <div class="network">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+</div>
+
+<script>
+
+
+
+
+    document.addEventListener("mousemove", function(event) {
+        const owl = document.querySelector(".owl");
+        const eyes = owl.querySelectorAll(".eye");
+
+        const mouseX = event.pageX;
+        const mouseY = event.pageY;
+
+        eyes.forEach(function(eye) {
+            const eyeRect = eye.getBoundingClientRect();
+            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+            const radian =Math.atan2(mouseX - eyeCenterX, mouseY - eyeCenterY);
+            const rotation = radian * (180 / Math.PI) * -1 + 180;
+            eye.style.transform = "rotate(" + rotation + "deg)";
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const body = document.querySelector("body");
+        body.style.cursor = "url('paper-play.png'), auto";
+
+    });
+</script>
+</body>
+</html>
